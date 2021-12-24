@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     post :sign_in
     post :sign_out
     get :me
+    put :update_password
   end
 
   namespace :api do

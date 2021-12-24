@@ -14,15 +14,23 @@ class AuthController < ApplicationController
   end
 
   def sign_out
-    response.delete_cookie('Authorization')
-
-    @current_user.update!(session_token: nil)
+    close_session
 
     render json: { message: 'Sessão encerrada com sucesso' }
   end
 
   def me
     render json: @current_user, serializer: Api::V1::Users::ShowSerializer
+  end
+
+  def update_password
+    raise Errors::Http::BadRequest, 'Obrigátório informar a senha' if params[:password].blank?
+
+    @current_user.update!(password: params[:password])
+
+    close_session
+
+    render json: { message: 'Sessão encerrada. Faça login novamente para continuar.' }
   end
 
   private
@@ -55,6 +63,12 @@ class AuthController < ApplicationController
       expires: 1.day.from_now,
       path: '/'
     }
+  end
+
+  def close_session
+    response.delete_cookie('Authorization')
+
+    @current_user.update!(session_token: nil)
   end
 
   def render_unauthorized
