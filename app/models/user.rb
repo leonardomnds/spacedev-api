@@ -1,9 +1,10 @@
 class User < ApplicationRecord
   acts_as_paranoid
-  has_secure_password
+  has_secure_password validations: false
 
   validates :email, uniqueness: true
-  validates :name, :email, :password, :company_id, presence: true
+  validates :password, presence: true, on: :create
+  validates :name, :email, :company_id, presence: true
 
   belongs_to :company
 
