@@ -21,12 +21,16 @@ gem 'will_paginate', '~> 3.3'
 
 group :development, :test do
   gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
+  gem 'factory_bot_rails', '~> 6.1'
   gem 'parallel_tests', '~> 3.4'
   gem 'pry-byebug', '~> 3.9'
 end
 
 group :test do
   gem 'database_cleaner', '~> 1.8', '>= 1.8.5'
+  gem 'faker', '~> 2.15', '>= 2.15.1'
+  gem 'rspec-rails', '~> 5.0'
+  gem 'shoulda-matchers', '~> 4.5'
 end
 
 group :development do
