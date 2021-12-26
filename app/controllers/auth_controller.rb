@@ -1,7 +1,7 @@
 class AuthController < ApplicationController
   skip_before_action :ensure_authentication, :switch_schema, only: :sign_in
 
-  before_action :find_user_by_email, :session_token, only: :sign_in
+  before_action :authenticate, :session_token, only: :sign_in
 
   def sign_in
     @token = jwt_token
@@ -35,10 +35,18 @@ class AuthController < ApplicationController
 
   private
 
-  def find_user_by_email
-    @user = User.find_by(email: params[:email])&.authenticate(params[:password])
+  def authenticate
+    params[:is_client].present? ? authenticate_client : authenticate_user
 
     render_unauthorized unless @user
+  end
+
+  def authenticate_user
+    @user = User.find_by(email: params[:email])&.authenticate(params[:password])
+  end
+
+  def authenticate_client
+    @user = Client.by_cpf_cnpj(params[:cpf_cnpj]).first&.authenticate(params[:password])
   end
 
   def session_token
@@ -52,6 +60,7 @@ class AuthController < ApplicationController
   def jwt_payload
     {
       user_id: @user.id,
+      is_client: params[:is_client].present?,
       session_token: @session_token,
       exp: 1.day.from_now.to_i
     }

@@ -5,7 +5,10 @@ module Api
 
       # GET /users
       def index
-        @users = paginate(search_users.not_admin, per_page: 20)
+        @users = paginate(
+          search_users.not_admin
+                      .by_company_id(@current_user.company_id)
+        )
 
         render json: @users, each_serializer: Api::V1::Users::IndexSerializer
       end
@@ -39,7 +42,8 @@ module Api
       private
 
       def set_user
-        @user = User.find_by!(id: params[:id])
+        @user = User.by_company_id(@current_user.company_id)
+                    .find_by!(id: params[:id])
       end
 
       def search_users

@@ -7,7 +7,7 @@ module Api
 
       # GET /companies
       def index
-        @companies = paginate(apply_scopes(Company), per_page: 20)
+        @companies = paginate(apply_scopes(Company))
 
         render json: @companies, each_serializer: Api::V1::Companies::IndexSerializer
       end

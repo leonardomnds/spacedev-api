@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
 
     decoded_token = jwt_decode(request.cookies[auth_key] || request.headers[auth_key] || '')
 
-    @current_user = User.find_by!(id: decoded_token[0]['user_id'], session_token: decoded_token[0]['session_token'])
+    @current_user = User.find_by!(id: decoded_token.first['user_id'], session_token: decoded_token.first['session_token'])
   rescue StandardError
     raise Errors::Http::Unauthorized, 'JWT Token inválido'
   end

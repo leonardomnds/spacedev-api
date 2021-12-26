@@ -1,6 +1,6 @@
 class AddSessionTokenToUsers < ActiveRecord::Migration[6.1]
   def up
-    add_column :users, :session_token, :string, default: false
+    add_column :users, :session_token, :string
   end
 
   def down

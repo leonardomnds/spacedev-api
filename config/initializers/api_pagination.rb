@@ -5,3 +5,5 @@ ApiPagination.configure do |config|
   config.per_page_header = 'X-Per-Page'
   config.include_total = true
 end
+
+WillPaginate.per_page = 20
