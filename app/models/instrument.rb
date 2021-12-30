@@ -1,4 +1,5 @@
 class Instrument < ApplicationRecord
+  has_paper_trail
   acts_as_paranoid
 
   validates :tag, :description, :calibration_time, presence: true

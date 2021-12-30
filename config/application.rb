@@ -21,5 +21,6 @@ module SpacedevApi
     config.api_only = true
     config.time_zone = ENV['TZ'] || 'Brasilia'
     config.autoloader = :classic
+    config.i18n.default_locale = :'pt-BR'
   end
 end

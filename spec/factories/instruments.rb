@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :instrument do
-    client            { find_or_create(:client) }
+    client            { Client.first.presence || create(:client) }
     tag               { Faker::Lorem.characters(number: 10) }
     description       { Faker::Lorem.sentence }
     calibration_time  { Faker::Number.between(from: 0, to: 24) }

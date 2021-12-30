@@ -1,0 +1,6 @@
+pt-BR:
+  controllers:
+    concerns:
+      error:
+        ensure_authentication:
+          invalid_jwt: "JWT Token inválido"

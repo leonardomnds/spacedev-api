@@ -44,7 +44,8 @@ module Api
 
       def client_params
         params.permit(
-          :cpf_cnpj, :company_name, :trading_name, :document_number, :email, :active
+          :cpf_cnpj, :company_name, :trading_name,
+          :document_number, :email, :active, :password
         )
       end
     end

@@ -20,19 +20,33 @@ module Error
     private
 
     def render_not_found(exception)
-      render_error(status: :not_found, message: "Recurso não encontrado para os parâmetros informados: #{exception.model}")
+      render_error(
+        status: :not_found,
+        message: I18n.t('controllers.concerns.error.error_handler.not_found', model: exception.model)
+      )
     end
 
     def render_unprocessable_entity(exception)
-      render_error(status: :unprocessable_entity, message: 'Não foi possível concluir essa operação', errors: exception.record.errors)
+      render_error(
+        status: :unprocessable_entity,
+        message: I18n.t('controllers.concerns.error.error_handler.unprocessable_entity'),
+        errors: exception.record.errors
+      )
     end
 
     def render_http_error(exception)
-      render_error(status: exception.status_code, message: exception.message)
+      render_error(
+        status: exception.status_code,
+        message: exception.message
+      )
     end
 
     def render_internal_server_error(exception)
-      render_error(status: :internal_server_error, message: 'Ocorreu um erro interno no servidor', errors: exception.message)
+      render_error(
+        status: :internal_server_error,
+        message: I18n.t('controllers.concerns.error.error_handler.internal_server_error'),
+        errors: exception.message
+      )
     end
   end
 end

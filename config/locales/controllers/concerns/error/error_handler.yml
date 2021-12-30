@@ -1,0 +1,8 @@
+pt-BR:
+  controllers:
+    concerns:
+      error:
+        error_handler:
+          not_found: "Recurso não encontrado para os parâmetros informados: %{model}"
+          unprocessable_entity: "Não foi possível concluir essa operação"
+          internal_server_error: "Ocorreu um erro interno no servidor"

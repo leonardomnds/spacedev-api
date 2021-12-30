@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_25_192347) do
+ActiveRecord::Schema.define(version: 2021_12_29_014015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,19 @@ ActiveRecord::Schema.define(version: 2021_12_25_192347) do
     t.string "session_token"
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true, where: "(deleted_at IS NULL)"
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.bigint "item_id", null: false
+    t.string "event", null: false
+    t.string "remote_ip"
+    t.bigint "whodunnit"
+    t.json "object"
+    t.json "object_changes"
+    t.string "request_uuid"
+    t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   add_foreign_key "calibrations", "instruments"
